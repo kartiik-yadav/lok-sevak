@@ -1,12 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import {
-  ArrowRight,
-  Bot,
-  ClipboardList,
-  FileCheck2,
-  Search,
-  Sparkles,
-} from "lucide-react";
+import { ArrowRight, Bot, ClipboardList, FileCheck2, Search, Sparkles } from "lucide-react";
 import { AiNavigator } from "@/components/ai-navigator";
 import { ServiceCard } from "@/components/service-card";
 import { services } from "@/lib/demo-data";
@@ -20,11 +13,7 @@ function Home() {
   const { startDemo, applications, setJourneyStep } = useAppState();
   const navigate = useNavigate();
 
-  const featured = [
-    "income-certificate",
-    "birth-certificate",
-    "scholarship",
-  ]
+  const featured = ["income-certificate", "birth-certificate", "scholarship"]
     .map((id) => services.find((s) => s.id === id))
     .filter(Boolean);
 
@@ -52,11 +41,9 @@ function Home() {
   return (
     <main className="min-h-screen">
       <div className="mx-auto max-w-[1500px] space-y-8 px-4 py-6 sm:px-6 lg:px-8">
-
         {/* Welcome Section */}
         <section className="rounded-2xl border border-line bg-card p-6 shadow-sm sm:p-8">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-
             <div>
               <div className="flex items-center gap-2 text-sm font-medium text-primary">
                 <Sparkles className="size-4" />
@@ -68,8 +55,8 @@ function Home() {
               </h1>
 
               <p className="mt-2 max-w-2xl text-paper-dim">
-                Access government services, manage your profile and track
-                applications — all from one unified platform.
+                Access government services, manage your profile and track applications — all from
+                one unified platform.
               </p>
             </div>
 
@@ -84,7 +71,6 @@ function Home() {
               Start Guided Demo
               <ArrowRight className="size-4" />
             </button>
-
           </div>
 
           {/* Service Search */}
@@ -97,9 +83,7 @@ function Home() {
             </div>
 
             <div>
-              <div className="font-medium text-paper">
-                What service do you need?
-              </div>
+              <div className="font-medium text-paper">What service do you need?</div>
               <div className="text-sm text-paper-dim">
                 Ask our AI to find the right government service for you
               </div>
@@ -113,12 +97,8 @@ function Home() {
         <section>
           <div className="mb-4 flex items-center justify-between">
             <div>
-              <h2 className="text-xl font-bold text-paper">
-                Quick Actions
-              </h2>
-              <p className="text-sm text-paper-dim">
-                Access the most useful LOK SEVAK features
-              </p>
+              <h2 className="text-xl font-bold text-paper">Quick Actions</h2>
+              <p className="text-sm text-paper-dim">Access the most useful LOK SEVAK features</p>
             </div>
           </div>
 
@@ -140,13 +120,9 @@ function Home() {
                     <ArrowRight className="size-5 text-paper-dim transition group-hover:translate-x-1 group-hover:text-primary" />
                   </div>
 
-                  <h3 className="mt-5 font-semibold text-paper">
-                    {item.title}
-                  </h3>
+                  <h3 className="mt-5 font-semibold text-paper">{item.title}</h3>
 
-                  <p className="mt-1 text-sm leading-relaxed text-paper-dim">
-                    {item.description}
-                  </p>
+                  <p className="mt-1 text-sm leading-relaxed text-paper-dim">{item.description}</p>
                 </button>
               );
             })}
@@ -155,17 +131,12 @@ function Home() {
 
         {/* Main Grid */}
         <section className="grid gap-6 xl:grid-cols-[1.4fr_0.9fr]">
-
           {/* Popular Services */}
           <div className="rounded-2xl border border-line bg-card p-5 shadow-sm sm:p-6">
             <div className="mb-6 flex items-center justify-between">
               <div>
-                <h2 className="text-xl font-bold text-paper">
-                  Popular Services
-                </h2>
-                <p className="text-sm text-paper-dim">
-                  Start your application in just a few steps
-                </p>
+                <h2 className="text-xl font-bold text-paper">Popular Services</h2>
+                <p className="text-sm text-paper-dim">Start your application in just a few steps</p>
               </div>
 
               <button
@@ -178,10 +149,7 @@ function Home() {
 
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
               {featured.map((service) => (
-                <ServiceCard
-                  key={service!.id}
-                  service={service!}
-                />
+                <ServiceCard key={service!.id} service={service!} />
               ))}
             </div>
           </div>
@@ -191,9 +159,7 @@ function Home() {
             <div className="mb-5">
               <div className="flex items-center gap-2">
                 <Bot className="size-5 text-primary" />
-                <h2 className="text-xl font-bold text-paper">
-                  AI Service Navigator
-                </h2>
+                <h2 className="text-xl font-bold text-paper">AI Service Navigator</h2>
               </div>
 
               <p className="mt-1 text-sm text-paper-dim">
@@ -203,16 +169,13 @@ function Home() {
 
             <AiNavigator compact />
           </div>
-
         </section>
 
         {/* Applications */}
         <section className="rounded-2xl border border-line bg-card p-5 shadow-sm sm:p-6">
           <div className="mb-6 flex items-center justify-between">
             <div>
-              <h2 className="text-xl font-bold text-paper">
-                Recent Applications
-              </h2>
+              <h2 className="text-xl font-bold text-paper">Recent Applications</h2>
               <p className="text-sm text-paper-dim">
                 Track your latest government service requests
               </p>
@@ -229,9 +192,7 @@ function Home() {
           {applications.length === 0 ? (
             <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-line py-10 text-center">
               <FileCheck2 className="size-9 text-paper-dim" />
-              <h3 className="mt-3 font-medium text-paper">
-                No applications yet
-              </h3>
+              <h3 className="mt-3 font-medium text-paper">No applications yet</h3>
               <p className="mt-1 text-sm text-paper-dim">
                 Start a service application to see it here.
               </p>
@@ -246,13 +207,9 @@ function Home() {
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <div className="font-semibold text-paper">
-                        {application.serviceName}
-                      </div>
+                      <div className="font-semibold text-paper">{application.serviceName}</div>
 
-                      <div className="mt-1 text-xs text-paper-dim">
-                        {application.id}
-                      </div>
+                      <div className="mt-1 text-xs text-paper-dim">{application.id}</div>
                     </div>
 
                     <span className="rounded-full bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">
@@ -280,7 +237,6 @@ function Home() {
             </div>
           )}
         </section>
-
       </div>
     </main>
   );

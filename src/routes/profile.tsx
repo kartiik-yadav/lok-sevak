@@ -1,13 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import {
-  CheckCircle2,
-  FileText,
-  MapPin,
-  Save,
-  ShieldCheck,
-  UserRound,
-} from "lucide-react";
+import { CheckCircle2, FileText, MapPin, Save, ShieldCheck, UserRound } from "lucide-react";
 import { Progress } from "@/components/ui-bits";
 import type { CitizenProfile } from "@/lib/demo-data";
 import { useAppState } from "@/state/app-state";
@@ -31,9 +24,7 @@ function EditField({
 }) {
   return (
     <div>
-      <label className="mb-1.5 block text-sm font-medium text-paper">
-        {label}
-      </label>
+      <label className="mb-1.5 block text-sm font-medium text-paper">{label}</label>
 
       {options ? (
         <select
@@ -70,17 +61,19 @@ function ProfilePage() {
   }, [profile]);
 
   const set = (key: keyof CitizenProfile) => (value: string) =>
-    setDraft((previous) => ({
-      ...previous,
-      [key]: value,
-    }) as CitizenProfile);
+    setDraft(
+      (previous) =>
+        ({
+          ...previous,
+          [key]: value,
+        }) as CitizenProfile,
+    );
 
   const dirty = JSON.stringify(draft) !== JSON.stringify(profile);
 
   return (
     <main className="min-h-screen">
       <div className="mx-auto max-w-[1400px] px-4 py-6 sm:px-6 lg:px-8">
-
         {/* Header */}
         <section className="mb-6 flex flex-col gap-5 rounded-2xl border border-line bg-card p-6 shadow-sm lg:flex-row lg:items-center lg:justify-between">
           <div>
@@ -94,19 +87,15 @@ function ProfilePage() {
             </h1>
 
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-paper-dim">
-              Keep your basic information updated. LOK SEVAK securely reuses
-              eligible details to help pre-fill government service applications.
+              Keep your basic information updated. LOK SEVAK securely reuses eligible details to
+              help pre-fill government service applications.
             </p>
           </div>
 
           <div className="min-w-[230px] rounded-xl border border-line bg-background p-4">
             <div className="flex items-center justify-between text-sm">
-              <span className="font-medium text-paper">
-                Profile Completion
-              </span>
-              <span className="font-semibold text-primary">
-                {draft.completion}%
-              </span>
+              <span className="font-medium text-paper">Profile Completion</span>
+              <span className="font-semibold text-primary">{draft.completion}%</span>
             </div>
 
             <div className="mt-3">
@@ -121,7 +110,6 @@ function ProfilePage() {
 
         {/* Profile Sections */}
         <div className="grid gap-6 lg:grid-cols-2">
-
           {/* Personal Information */}
           <section className="rounded-2xl border border-line bg-card p-5 shadow-sm sm:p-6">
             <div className="mb-6 flex items-center gap-3">
@@ -130,21 +118,13 @@ function ProfilePage() {
               </div>
 
               <div>
-                <h2 className="font-semibold text-paper">
-                  Personal Information
-                </h2>
-                <p className="text-xs text-paper-dim">
-                  Basic details used across applications
-                </p>
+                <h2 className="font-semibold text-paper">Personal Information</h2>
+                <p className="text-xs text-paper-dim">Basic details used across applications</p>
               </div>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
-              <EditField
-                label="Full Name"
-                value={draft.fullName}
-                onChange={set("fullName")}
-              />
+              <EditField label="Full Name" value={draft.fullName} onChange={set("fullName")} />
 
               <EditField
                 label="Date of Birth"
@@ -160,11 +140,7 @@ function ProfilePage() {
                 options={["Male", "Female", "Other"]}
               />
 
-              <EditField
-                label="Mobile Number"
-                value={draft.mobile}
-                onChange={set("mobile")}
-              />
+              <EditField label="Mobile Number" value={draft.mobile} onChange={set("mobile")} />
 
               <div className="sm:col-span-2">
                 <EditField
@@ -185,61 +161,32 @@ function ProfilePage() {
               </div>
 
               <div>
-                <h2 className="font-semibold text-paper">
-                  Address Information
-                </h2>
-                <p className="text-xs text-paper-dim">
-                  Your primary residential address
-                </p>
+                <h2 className="font-semibold text-paper">Address Information</h2>
+                <p className="text-xs text-paper-dim">Your primary residential address</p>
               </div>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="sm:col-span-2">
-                <EditField
-                  label="Address"
-                  value={draft.address}
-                  onChange={set("address")}
-                />
+                <EditField label="Address" value={draft.address} onChange={set("address")} />
               </div>
 
-              <EditField
-                label="City"
-                value={draft.city}
-                onChange={set("city")}
-              />
+              <EditField label="City" value={draft.city} onChange={set("city")} />
 
-              <EditField
-                label="PIN Code"
-                value={draft.pin}
-                onChange={set("pin")}
-              />
+              <EditField label="PIN Code" value={draft.pin} onChange={set("pin")} />
 
               <EditField
                 label="District"
                 value={draft.district}
                 onChange={set("district")}
-                options={[
-                  "Nagpur",
-                  "Pune",
-                  "Mumbai Suburban",
-                  "Nashik",
-                  "Amravati",
-                  "Aurangabad",
-                ]}
+                options={["Nagpur", "Pune", "Mumbai Suburban", "Nashik", "Amravati", "Aurangabad"]}
               />
 
               <EditField
                 label="State"
                 value={draft.state}
                 onChange={set("state")}
-                options={[
-                  "Maharashtra",
-                  "Madhya Pradesh",
-                  "Gujarat",
-                  "Karnataka",
-                  "Telangana",
-                ]}
+                options={["Maharashtra", "Madhya Pradesh", "Gujarat", "Karnataka", "Telangana"]}
               />
             </div>
           </section>
@@ -252,12 +199,8 @@ function ProfilePage() {
               </div>
 
               <div>
-                <h2 className="font-semibold text-paper">
-                  Identity Information
-                </h2>
-                <p className="text-xs text-paper-dim">
-                  Used for eligible application verification
-                </p>
+                <h2 className="font-semibold text-paper">Identity Information</h2>
+                <p className="text-xs text-paper-dim">Used for eligible application verification</p>
               </div>
             </div>
 
@@ -268,11 +211,7 @@ function ProfilePage() {
                 onChange={set("aadhaar")}
               />
 
-              <EditField
-                label="PAN Number (Optional)"
-                value={draft.pan}
-                onChange={set("pan")}
-              />
+              <EditField label="PAN Number (Optional)" value={draft.pan} onChange={set("pan")} />
             </div>
           </section>
 
@@ -284,9 +223,7 @@ function ProfilePage() {
               </div>
 
               <div>
-                <h2 className="font-semibold text-paper">
-                  Saved Documents
-                </h2>
+                <h2 className="font-semibold text-paper">Saved Documents</h2>
                 <p className="text-xs text-paper-dim">
                   Documents available for compatible applications
                 </p>
@@ -305,12 +242,8 @@ function ProfilePage() {
                     </div>
 
                     <div>
-                      <div className="text-sm font-medium text-paper">
-                        {document.name}
-                      </div>
-                      <div className="text-xs text-paper-dim">
-                        {document.issuer}
-                      </div>
+                      <div className="text-sm font-medium text-paper">{document.name}</div>
+                      <div className="text-xs text-paper-dim">{document.issuer}</div>
                     </div>
                   </div>
 
@@ -322,9 +255,7 @@ function ProfilePage() {
                         : "bg-warn/15 text-warn")
                     }
                   >
-                    {document.status === "Verified" && (
-                      <CheckCircle2 className="size-3" />
-                    )}
+                    {document.status === "Verified" && <CheckCircle2 className="size-3" />}
                     {document.status}
                   </span>
                 </div>
@@ -373,15 +304,12 @@ function ProfilePage() {
             <ShieldCheck className="mt-0.5 size-5 shrink-0 text-primary" />
 
             <div>
-              <h3 className="font-semibold text-paper">
-                Your data, your control
-              </h3>
+              <h3 className="font-semibold text-paper">Your data, your control</h3>
 
               <p className="mt-1 max-w-3xl text-sm leading-relaxed text-paper-dim">
-                Your common profile information can be reused for compatible
-                government services. Service-specific information is collected
-                only when required for that particular application. This
-                prototype uses simulated demo data only.
+                Your common profile information can be reused for compatible government services.
+                Service-specific information is collected only when required for that particular
+                application. This prototype uses simulated demo data only.
               </p>
             </div>
           </div>

@@ -1,11 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
-import {
-  aiExampleQueries,
-  departmentById,
-  matchService,
-  serviceById,
-} from "@/lib/demo-data";
+import { aiExampleQueries, departmentById, matchService, serviceById } from "@/lib/demo-data";
 import { PrimaryButton } from "@/components/ui-bits";
 import { useAppState } from "@/state/app-state";
 
@@ -18,11 +13,7 @@ export function AiNavigator({ compact = false }: { compact?: boolean }) {
 
   const navigate = useNavigate();
 
-  const {
-    profile,
-    markRecent,
-    setJourneyStep,
-  } = useAppState();
+  const { profile, markRecent, setJourneyStep } = useAppState();
 
   const match = matchService(submitted);
   const service = serviceById(match.serviceId)!;
@@ -142,17 +133,13 @@ export function AiNavigator({ compact = false }: { compact?: boolean }) {
       <div className="mt-4 rounded-sm border border-line bg-ink-900 p-4">
         <div className="lks-label">Your Query</div>
 
-        <div className="mt-1.5 font-display text-lg text-paper">
-          {submitted}
-        </div>
+        <div className="mt-1.5 font-display text-lg text-paper">{submitted}</div>
       </div>
 
       {/* Thinking state */}
       {thinking ? (
         <div className="mt-3 rounded-sm border border-line bg-ink-900 p-4">
-          <div className="lks-label">
-            Lok Sevak AI is interpreting your request…
-          </div>
+          <div className="lks-label">Lok Sevak AI is interpreting your request…</div>
 
           <div className="mt-3 h-1 w-full rounded-full lks-shimmer" />
         </div>
@@ -187,9 +174,7 @@ export function AiNavigator({ compact = false }: { compact?: boolean }) {
           <div className="mt-4 border-t border-line pt-3">
             <div className="lks-label">Why this service</div>
 
-            <p className="mt-1.5 text-sm leading-relaxed text-paper/80">
-              {match.reason}
-            </p>
+            <p className="mt-1.5 text-sm leading-relaxed text-paper/80">{match.reason}</p>
           </div>
 
           {/* Documents */}
@@ -207,15 +192,8 @@ export function AiNavigator({ compact = false }: { compact?: boolean }) {
                 const held = availableDocuments.includes(documentName);
 
                 return (
-                  <li
-                    key={documentName}
-                    className="flex items-center gap-2"
-                  >
-                    <span
-                      className={held ? "text-signal" : "text-warn"}
-                    >
-                      {held ? "✓" : "⚠"}
-                    </span>
+                  <li key={documentName} className="flex items-center gap-2">
+                    <span className={held ? "text-signal" : "text-warn"}>{held ? "✓" : "⚠"}</span>
 
                     {documentName}
                   </li>
@@ -226,8 +204,8 @@ export function AiNavigator({ compact = false }: { compact?: boolean }) {
             {missingDocuments.length > 0 && (
               <div className="mt-3 rounded-sm border border-warn/25 bg-warn/5 px-3 py-2 font-mono text-[10px] text-warn">
                 {missingDocuments.length} document
-                {missingDocuments.length > 1 ? "s are" : " is"} not
-                currently available in your Citizen Profile.
+                {missingDocuments.length > 1 ? "s are" : " is"} not currently available in your
+                Citizen Profile.
               </div>
             )}
           </div>
@@ -237,9 +215,7 @@ export function AiNavigator({ compact = false }: { compact?: boolean }) {
             <div>
               <div className="lks-label">Processing Time</div>
 
-              <div className="mt-1 font-display text-base text-paper">
-                {service.processingTime}
-              </div>
+              <div className="mt-1 font-display text-base text-paper">{service.processingTime}</div>
             </div>
 
             <div>
@@ -255,9 +231,7 @@ export function AiNavigator({ compact = false }: { compact?: boolean }) {
           <div className="mt-3 border-t border-line pt-3">
             <div className="lks-label">Recommended Next Step</div>
 
-            <p className="mt-1.5 text-sm leading-relaxed text-paper-dim">
-              {match.nextStep}
-            </p>
+            <p className="mt-1.5 text-sm leading-relaxed text-paper-dim">{match.nextStep}</p>
           </div>
 
           {/* Start application */}

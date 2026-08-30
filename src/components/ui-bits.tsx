@@ -25,13 +25,7 @@ export function SectionHeading({
   );
 }
 
-export function Panel({
-  children,
-  className = "",
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
+export function Panel({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
     <div className={`rounded-sm border border-line bg-ink-900 p-5 ${className}`}>{children}</div>
   );
@@ -58,7 +52,13 @@ export function DeptTag({ id }: { id: DepartmentId }) {
   );
 }
 
-export function Progress({ value, tone = "saffron" }: { value: number; tone?: "saffron" | "signal" }) {
+export function Progress({
+  value,
+  tone = "saffron",
+}: {
+  value: number;
+  tone?: "saffron" | "signal";
+}) {
   return (
     <div className="h-1 w-full overflow-hidden rounded-full bg-ink-700">
       <div

@@ -68,7 +68,7 @@
   --ink: oklch(0.985 0.003 260);
   --ink-900: oklch(0.97 0.006 260);
   --ink-800: oklch(0.94 0.008 260);
-  --ink-700: oklch(0.90 0.01 260);
+  --ink-700: oklch(0.9 0.01 260);
   --ink-600: oklch(0.78 0.015 260);
   --line: oklch(0.84 0.012 260);
   --saffron: oklch(0.57 0.16 250);
@@ -77,7 +77,7 @@
   --paper-dim: oklch(0.47 0.02 260);
   --signal: oklch(0.61 0.15 155);
   --signal-soft: oklch(0.55 0.13 155);
-  --info: oklch(0.60 0.13 245);
+  --info: oklch(0.6 0.13 245);
   --warn: oklch(0.72 0.14 80);
   --background: oklch(0.975 0.004 260);
   --foreground: var(--paper);
@@ -218,12 +218,7 @@
     position: absolute;
     inset-inline: 0;
     height: 60%;
-    background: linear-gradient(
-      to bottom,
-      transparent,
-      var(--saffron),
-      transparent
-    );
+    background: linear-gradient(to bottom, transparent, var(--saffron), transparent);
     animation: lks-flow 1.8s linear infinite;
   }
 }

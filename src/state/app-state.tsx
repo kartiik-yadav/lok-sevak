@@ -17,11 +17,7 @@ import {
 
 import { type Lang } from "@/lib/i18n";
 
-export type DocStatus =
-  | "Available"
-  | "Required"
-  | "Uploaded"
-  | "Missing";
+export type DocStatus = "Available" | "Required" | "Uploaded" | "Missing";
 
 export type ApplicationDraft = {
   serviceId: string;
@@ -91,66 +87,35 @@ function writeLocal(key: string, value: unknown) {
   }
 }
 
-export function AppStateProvider({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export function AppStateProvider({ children }: { children: ReactNode }) {
   const [demoStarted, setDemoStarted] = useState(false);
 
   const [lang, setLang] = useState<Lang>("en");
 
-  const [theme, setThemeState] =
-    useState<Theme>("light");
+  const [theme, setThemeState] = useState<Theme>("light");
 
-  const [applications, setApplications] =
-    useState<Application[]>(seedApplications);
+  const [applications, setApplications] = useState<Application[]>(seedApplications);
 
-  const [recent, setRecent] = useState<string[]>([
-    "income-certificate",
-    "scholarship",
-  ]);
+  const [recent, setRecent] = useState<string[]>(["income-certificate", "scholarship"]);
 
   const [journeyStep, setJourneyStep] = useState(0);
 
-  const [profile, setProfile] =
-    useState<CitizenProfile>(demoCitizen);
+  const [profile, setProfile] = useState<CitizenProfile>(demoCitizen);
 
-  const [drafts, setDrafts] =
-    useState<Record<string, ApplicationDraft>>({});
+  const [drafts, setDrafts] = useState<Record<string, ApplicationDraft>>({});
 
   /*
    * Hydrate persisted data after mount.
    * This keeps the code SSR-safe.
    */
   useEffect(() => {
-    setProfile(
-      readLocal<CitizenProfile>(
-        PROFILE_KEY,
-        demoCitizen,
-      ),
-    );
+    setProfile(readLocal<CitizenProfile>(PROFILE_KEY, demoCitizen));
 
-    setDrafts(
-      readLocal<Record<string, ApplicationDraft>>(
-        DRAFTS_KEY,
-        {},
-      ),
-    );
+    setDrafts(readLocal<Record<string, ApplicationDraft>>(DRAFTS_KEY, {}));
 
-    setApplications(
-      readLocal<Application[]>(
-        APPLICATIONS_KEY,
-        seedApplications,
-      ),
-    );
+    setApplications(readLocal<Application[]>(APPLICATIONS_KEY, seedApplications));
 
-    setThemeState(
-      readLocal<Theme>(
-        THEME_KEY,
-        "light",
-      ),
-    );
+    setThemeState(readLocal<Theme>(THEME_KEY, "light"));
   }, []);
 
   /*
@@ -158,21 +123,15 @@ export function AppStateProvider({
    */
   useEffect(() => {
     if (typeof document !== "undefined") {
-      document.documentElement.classList.toggle(
-        "dark",
-        theme === "dark",
-      );
+      document.documentElement.classList.toggle("dark", theme === "dark");
     }
 
     writeLocal(THEME_KEY, theme);
   }, [theme]);
 
-  const setTheme = useCallback(
-    (next: Theme) => {
-      setThemeState(next);
-    },
-    [],
-  );
+  const setTheme = useCallback((next: Theme) => {
+    setThemeState(next);
+  }, []);
 
   const startDemo = useCallback(() => {
     setDemoStarted(true);
@@ -182,88 +141,60 @@ export function AppStateProvider({
   /*
    * Profile persistence
    */
-  const saveProfile = useCallback(
-    (p: CitizenProfile) => {
-      setProfile(p);
-      writeLocal(PROFILE_KEY, p);
-    },
-    [],
-  );
+  const saveProfile = useCallback((p: CitizenProfile) => {
+    setProfile(p);
+    writeLocal(PROFILE_KEY, p);
+  }, []);
 
   /*
    * Draft persistence
    */
-  const saveDraft = useCallback(
-    (draft: ApplicationDraft) => {
-      setDrafts((prev) => {
-        const next = {
-          ...prev,
-          [draft.serviceId]: draft,
-        };
+  const saveDraft = useCallback((draft: ApplicationDraft) => {
+    setDrafts((prev) => {
+      const next = {
+        ...prev,
+        [draft.serviceId]: draft,
+      };
 
-        writeLocal(DRAFTS_KEY, next);
+      writeLocal(DRAFTS_KEY, next);
 
-        return next;
-      });
-    },
-    [],
-  );
+      return next;
+    });
+  }, []);
 
-  const clearDraft = useCallback(
-    (serviceId: string) => {
-      setDrafts((prev) => {
-        const next = {
-          ...prev,
-        };
+  const clearDraft = useCallback((serviceId: string) => {
+    setDrafts((prev) => {
+      const next = {
+        ...prev,
+      };
 
-        delete next[serviceId];
+      delete next[serviceId];
 
-        writeLocal(DRAFTS_KEY, next);
+      writeLocal(DRAFTS_KEY, next);
 
-        return next;
-      });
-    },
-    [],
-  );
+      return next;
+    });
+  }, []);
 
   /*
    * Application persistence
    */
-  const addApplication = useCallback(
-    (app: Application) => {
-      setApplications((prev) => {
-        const next = [
-          app,
-          ...prev,
-        ];
+  const addApplication = useCallback((app: Application) => {
+    setApplications((prev) => {
+      const next = [app, ...prev];
 
-        writeLocal(
-          APPLICATIONS_KEY,
-          next,
-        );
+      writeLocal(APPLICATIONS_KEY, next);
 
-        return next;
-      });
-    },
-    [],
-  );
+      return next;
+    });
+  }, []);
 
   /*
    * Recent services
    */
-  const markRecent = useCallback(
-    (serviceId: string) => {
-      setRecent((prev) =>
-        [
-          serviceId,
-          ...prev.filter(
-            (s) => s !== serviceId,
-          ),
-        ].slice(0, 4),
-      );
-    },
-    [],
-  );
+  const markRecent = useCallback((serviceId: string) => {
+    setRecent((prev) => [serviceId, ...prev.filter((s) => s !== serviceId)].slice(0, 4));
+  }, []);
 
   const value = useMemo(
     () => ({
@@ -318,20 +249,14 @@ export function AppStateProvider({
     ],
   );
 
-  return (
-    <Ctx.Provider value={value}>
-      {children}
-    </Ctx.Provider>
-  );
+  return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
 
 export function useAppState() {
   const ctx = useContext(Ctx);
 
   if (!ctx) {
-    throw new Error(
-      "useAppState must be used inside AppStateProvider",
-    );
+    throw new Error("useAppState must be used inside AppStateProvider");
   }
 
   return ctx;

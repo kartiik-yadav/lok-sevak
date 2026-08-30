@@ -28,7 +28,8 @@ export const Route = createFileRoute("/apply/$serviceId")({
         { property: "og:title", content: `${name} — Online Application | LOK SEVAK` },
         {
           property: "og:description",
-          content: "A government-style multi-step application, auto-filled from your citizen profile.",
+          content:
+            "A government-style multi-step application, auto-filled from your citizen profile.",
         },
       ],
     };
@@ -45,7 +46,11 @@ const STEPS = [
 ];
 
 function todayStr() {
-  return new Date().toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
+  return new Date().toLocaleDateString("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
 }
 
 function makeReference(dept: string) {
@@ -91,8 +96,8 @@ function ApplyPage() {
     }
     const docs: Record<string, DocStatus> = {};
     for (const d of form.documents) {
-      const owned = profile.documents.some(
-        (pd) => d.toLowerCase().includes(pd.name.toLowerCase().split(" ")[0]!.toLowerCase()),
+      const owned = profile.documents.some((pd) =>
+        d.toLowerCase().includes(pd.name.toLowerCase().split(" ")[0]!.toLowerCase()),
       );
       docs[d] = owned ? "Available" : "Required";
     }
@@ -123,13 +128,7 @@ function ApplyPage() {
   useEffect(() => {
     if (phase !== "sending") return;
     if (gatewayIndex >= gateway.length) {
-      const app = submitToDepartment(
-        service,
-        reference,
-        values,
-        documents,
-        declared,
-      );
+      const app = submitToDepartment(service, reference, values, documents, declared);
 
       addApplication(app);
 
@@ -140,16 +139,22 @@ function ApplyPage() {
 
       clearDraft(service.id);
 
-      const t = window.setTimeout(
-        () => setPhase("done"),
-        500,
-      );
+      const t = window.setTimeout(() => setPhase("done"), 500);
 
       return () => window.clearTimeout(t);
     }
     const t = window.setTimeout(() => setGatewayIndex((i) => i + 1), 700);
     return () => window.clearTimeout(t);
-  }, [phase, gatewayIndex, gateway.length, service, addApplication, markRecent, setJourneyStep, clearDraft]);
+  }, [
+    phase,
+    gatewayIndex,
+    gateway.length,
+    service,
+    addApplication,
+    markRecent,
+    setJourneyStep,
+    clearDraft,
+  ]);
 
   if (!form || !isImplemented(service.id)) {
     return (
@@ -180,7 +185,11 @@ function ApplyPage() {
     if (f.profileKey) {
       const original = String(profile[f.profileKey] ?? "");
       setModified((prev) =>
-        v !== original ? (prev.includes(f.key) ? prev : [...prev, f.key]) : prev.filter((k) => k !== f.key),
+        v !== original
+          ? prev.includes(f.key)
+            ? prev
+            : [...prev, f.key]
+          : prev.filter((k) => k !== f.key),
       );
     }
     setErrors((prev) => {
@@ -353,7 +362,10 @@ function ApplyPage() {
     ));
 
   const summaryRow = (label: string, value: string, mod: boolean) => (
-    <div key={label} className="flex flex-wrap justify-between gap-2 border-b border-line py-1.5 last:border-0">
+    <div
+      key={label}
+      className="flex flex-wrap justify-between gap-2 border-b border-line py-1.5 last:border-0"
+    >
       <span className="text-[12px] text-paper-dim">{label}</span>
       <span className="text-[13px] text-paper">
         {value || "—"}
@@ -392,7 +404,9 @@ function ApplyPage() {
             <div className="text-paper-dim">Application Reference</div>
             <div className="mt-0.5 text-saffron-soft">{reference || "—"}</div>
             <div className="mt-1 text-paper-dim">Date · {todayStr()}</div>
-            <div className="text-paper-dim">Status · {phase === "done" ? "Submitted" : "Draft"}</div>
+            <div className="text-paper-dim">
+              Status · {phase === "done" ? "Submitted" : "Draft"}
+            </div>
           </div>
         </div>
 
@@ -439,8 +453,8 @@ function ApplyPage() {
           {step === 0 && (
             <>
               <div className="rounded-sm border border-signal/30 bg-signal/5 px-4 py-3 text-sm text-signal">
-                ✓ Applicant details were mapped automatically from your One Citizen Profile. Any edit
-                here applies to this application only.
+                ✓ Applicant details were mapped automatically from your One Citizen Profile. Any
+                edit here applies to this application only.
               </div>
               {renderSections(form.applicant)}
             </>
@@ -461,7 +475,10 @@ function ApplyPage() {
                   const st = documents[d] ?? "Required";
                   const ok = st === "Available" || st === "Uploaded";
                   return (
-                    <li key={d} className="flex flex-wrap items-center justify-between gap-3 px-4 py-3">
+                    <li
+                      key={d}
+                      className="flex flex-wrap items-center justify-between gap-3 px-4 py-3"
+                    >
                       <div>
                         <div className="text-sm text-paper">
                           {ok ? "✓" : "⚠"} {d}
@@ -614,7 +631,11 @@ function ApplyPage() {
                             }
                           />
                           <div>
-                            <div className={"text-sm " + (done || active ? "text-paper" : "text-paper-dim")}>
+                            <div
+                              className={
+                                "text-sm " + (done || active ? "text-paper" : "text-paper-dim")
+                              }
+                            >
                               {s.label}
                             </div>
                             <div className="font-mono text-[10px] text-paper-dim">{s.detail}</div>
@@ -628,7 +649,10 @@ function ApplyPage() {
                       <div className="font-display text-lg text-paper">
                         Application submitted to {dept.systemName}
                       </div>
-                      <PrimaryButton className="mt-3" onClick={() => navigate({ to: "/applications" })}>
+                      <PrimaryButton
+                        className="mt-3"
+                        onClick={() => navigate({ to: "/applications" })}
+                      >
                         Track Application <span aria-hidden>&rarr;</span>
                       </PrimaryButton>
                     </div>
@@ -676,7 +700,10 @@ function ApplyPage() {
           <div className="rounded-sm border border-line bg-ink-900 p-4">
             <div className="lks-label">Form Completion</div>
             <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-ink-700">
-              <div className="h-full bg-saffron transition-all" style={{ width: `${completion}%` }} />
+              <div
+                className="h-full bg-saffron transition-all"
+                style={{ width: `${completion}%` }}
+              />
             </div>
             <div className="mt-2 font-mono text-[11px] text-paper-dim">
               {filled}/{fields.length} fields · {autoKeys.length} auto-filled from profile ·{" "}

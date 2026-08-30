@@ -62,8 +62,7 @@ export const departments: Department[] = [
   },
 ];
 
-export const departmentById = (id: DepartmentId) =>
-  departments.find((d) => d.id === id)!;
+export const departmentById = (id: DepartmentId) => departments.find((d) => d.id === id)!;
 
 export type Service = {
   id: string;
@@ -274,11 +273,7 @@ export const demoCitizen: CitizenProfile = {
 };
 
 export type ApplicationStatus =
-  | "Submitted"
-  | "Processing"
-  | "Documents Required"
-  | "Documents Verified"
-  | "Approved";
+  "Submitted" | "Processing" | "Documents Required" | "Documents Verified" | "Approved";
 
 export type Application = {
   id: string;

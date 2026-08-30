@@ -56,9 +56,7 @@ const flow = [
 function HubPage() {
   const ccdf = toCommonFormat(demoCitizen);
 
-  const connectedDepartments = departments.filter(
-    (d) => d.connected,
-  ).length;
+  const connectedDepartments = departments.filter((d) => d.connected).length;
 
   return (
     <div className="mx-auto max-w-[1320px] px-6 py-14 sm:px-8">
@@ -74,9 +72,8 @@ function HubPage() {
       />
 
       <p className="mt-5 max-w-[72ch] text-base leading-relaxed text-paper-dim">
-        LOK SEVAK acts as an interoperability layer that enables fragmented
-        government digital systems to communicate through standardized APIs and
-        a common data format.
+        LOK SEVAK acts as an interoperability layer that enables fragmented government digital
+        systems to communicate through standardized APIs and a common data format.
       </p>
 
       {/* Connected Department Systems */}
@@ -85,9 +82,8 @@ function HubPage() {
           <div className="lks-label">Connected Department Systems</div>
 
           <p className="mt-1 max-w-[70ch] text-sm text-paper-dim">
-            Each department uses its own system and data format. The integration
-            gateway converts them into a common structure that can be used by
-            the LOK SEVAK platform.
+            Each department uses its own system and data format. The integration gateway converts
+            them into a common structure that can be used by the LOK SEVAK platform.
           </p>
         </div>
 
@@ -99,19 +95,12 @@ function HubPage() {
       {/* Department Cards */}
       <div className="mt-5 grid gap-3 md:grid-cols-2">
         {departments.map((d) => (
-          <div
-            key={d.id}
-            className="rounded-sm border border-line bg-ink-900 p-5"
-          >
+          <div key={d.id} className="rounded-sm border border-line bg-ink-900 p-5">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <div className="font-display text-lg font-medium text-paper">
-                  {d.systemName}
-                </div>
+                <div className="font-display text-lg font-medium text-paper">{d.systemName}</div>
 
-                <div className="mt-1 font-mono text-[10px] text-paper-dim">
-                  {d.endpoint}
-                </div>
+                <div className="mt-1 font-mono text-[10px] text-paper-dim">{d.endpoint}</div>
               </div>
 
               <span
@@ -136,13 +125,7 @@ function HubPage() {
               <div>
                 <dt className="lks-label">API Status</dt>
 
-                <dd
-                  className={`mt-1 ${
-                    d.apiStatus === "Active"
-                      ? "text-signal"
-                      : "text-warn"
-                  }`}
-                >
+                <dd className={`mt-1 ${d.apiStatus === "Active" ? "text-signal" : "text-warn"}`}>
                   {d.apiStatus}
                 </dd>
               </div>
@@ -162,8 +145,8 @@ function HubPage() {
 
             {d.dataFormat !== "JSON" && (
               <div className="mt-3 rounded-sm border border-saffron/25 bg-saffron/5 px-3 py-2 font-mono text-[10px] text-saffron-soft">
-                {d.dataFormat} → converted through Data Transformation Layer →
-                Common Citizen Data Format
+                {d.dataFormat} → converted through Data Transformation Layer → Common Citizen Data
+                Format
               </div>
             )}
           </div>
@@ -189,20 +172,13 @@ function HubPage() {
                         : "border-line bg-ink-900")
                   }
                 >
-                  <div className="font-display text-base font-medium text-paper">
-                    {f.label}
-                  </div>
+                  <div className="font-display text-base font-medium text-paper">{f.label}</div>
 
-                  <div className="font-mono text-[10px] text-paper-dim">
-                    {f.detail}
-                  </div>
+                  <div className="font-mono text-[10px] text-paper-dim">{f.detail}</div>
                 </div>
 
                 {i < flow.length - 1 && (
-                  <div
-                    className="mx-auto h-6 w-px bg-line lks-flow-line"
-                    aria-hidden
-                  />
+                  <div className="mx-auto h-6 w-px bg-line lks-flow-line" aria-hidden />
                 )}
               </li>
             ))}
@@ -211,9 +187,7 @@ function HubPage() {
 
         {/* CCDF Data */}
         <div className="lg:col-span-6">
-          <div className="lks-label">
-            Common Citizen Data Format (CCDF v1.0)
-          </div>
+          <div className="lks-label">Common Citizen Data Format (CCDF v1.0)</div>
 
           <pre className="mt-4 overflow-x-auto rounded-sm border border-line bg-ink-900 p-4 font-mono text-[11px] leading-relaxed text-paper-dim">
             {JSON.stringify(ccdf, null, 2)}
@@ -224,14 +198,12 @@ function HubPage() {
             <div className="lks-label">Architecture</div>
 
             <div className="mt-2 font-mono text-[11px] leading-relaxed text-paper-dim">
-              Frontend → Business Logic → Integration Layer → Government API
-              Connectors
+              Frontend → Business Logic → Integration Layer → Government API Connectors
             </div>
 
             <p className="mt-2 text-sm leading-relaxed text-paper-dim">
-              Connectors are mocked for this prototype. Replacing them with real
-              department endpoints requires no change to the citizen-facing
-              application.
+              Connectors are mocked for this prototype. Replacing them with real department
+              endpoints requires no change to the citizen-facing application.
             </p>
           </div>
         </div>

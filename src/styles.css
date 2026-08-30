@@ -1,0 +1,251 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * LOK SEVAK design system — "Ink Technical Government"
+ * Deep ink base, saffron accent, Fraunces display + IBM Plex Sans/Mono.
+ * All colors are oklch tokens. Never hardcode colors in components.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 6px);
+
+  --font-display: var(--font-display-family);
+  --font-body: var(--font-body-family);
+  --font-mono: var(--font-mono-family);
+  --font-sans: var(--font-body-family);
+
+  --color-ink: var(--ink);
+  --color-ink-900: var(--ink-900);
+  --color-ink-800: var(--ink-800);
+  --color-ink-700: var(--ink-700);
+  --color-ink-600: var(--ink-600);
+  --color-line: var(--line);
+  --color-saffron: var(--saffron);
+  --color-saffron-soft: var(--saffron-soft);
+  --color-paper: var(--paper);
+  --color-paper-dim: var(--paper-dim);
+  --color-signal: var(--signal);
+  --color-signal-soft: var(--signal-soft);
+  --color-info: var(--info);
+  --color-warn: var(--warn);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+}
+
+:root {
+  --radius: 0.5rem;
+  --font-display-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-body-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono-family: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Light mode — clean government dashboard */
+  --ink: oklch(0.985 0.003 260);
+  --ink-900: oklch(0.97 0.006 260);
+  --ink-800: oklch(0.94 0.008 260);
+  --ink-700: oklch(0.90 0.01 260);
+  --ink-600: oklch(0.78 0.015 260);
+  --line: oklch(0.84 0.012 260);
+  --saffron: oklch(0.57 0.16 250);
+  --saffron-soft: oklch(0.48 0.14 250);
+  --paper: oklch(0.23 0.025 260);
+  --paper-dim: oklch(0.47 0.02 260);
+  --signal: oklch(0.61 0.15 155);
+  --signal-soft: oklch(0.55 0.13 155);
+  --info: oklch(0.60 0.13 245);
+  --warn: oklch(0.72 0.14 80);
+  --background: oklch(0.975 0.004 260);
+  --foreground: var(--paper);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--paper);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--paper);
+  --primary: oklch(0.56 0.16 250);
+  --primary-foreground: white;
+  --secondary: var(--ink-800);
+  --secondary-foreground: var(--paper);
+  --muted: var(--ink-900);
+  --muted-foreground: var(--paper-dim);
+  --accent: oklch(0.92 0.03 250);
+  --accent-foreground: var(--paper);
+  --destructive: oklch(0.62 0.19 25);
+  --destructive-foreground: white;
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--primary);
+  --sidebar: oklch(0.22 0.045 255);
+  --sidebar-foreground: white;
+}
+
+.dark {
+  --ink: oklch(0.169 0.023 264);
+  --ink-900: oklch(0.196 0.025 264);
+  --ink-800: oklch(0.229 0.026 265);
+  --ink-700: oklch(0.271 0.028 264);
+  --ink-600: oklch(0.336 0.031 262);
+  --line: oklch(0.318 0.028 263);
+  --saffron: oklch(0.709 0.155 55);
+  --saffron-soft: oklch(0.785 0.121 62);
+  --paper: oklch(0.937 0.005 120);
+  --paper-dim: oklch(0.704 0.021 262);
+  --signal: oklch(0.812 0.152 158);
+  --signal-soft: oklch(0.87 0.12 160);
+  --info: oklch(0.79 0.111 234);
+  --warn: oklch(0.83 0.13 85);
+  --background: var(--ink);
+  --foreground: var(--paper);
+  --card: var(--ink-900);
+  --card-foreground: var(--paper);
+  --popover: var(--ink-900);
+  --popover-foreground: var(--paper);
+  --primary: oklch(0.65 0.16 245);
+  --primary-foreground: white;
+  --secondary: var(--ink-700);
+  --secondary-foreground: var(--paper);
+  --muted: var(--ink-800);
+  --muted-foreground: var(--paper-dim);
+  --accent: var(--ink-700);
+  --accent-foreground: var(--paper);
+  --destructive: oklch(0.65 0.19 25);
+  --destructive-foreground: var(--paper);
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--primary);
+  --sidebar: oklch(0.16 0.04 260);
+  --sidebar-foreground: white;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-body-family);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: color-mix(in oklab, var(--saffron) 30%, transparent);
+    color: var(--paper);
+  }
+}
+
+@keyframes lks-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes lks-flow {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes lks-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes lks-sweep {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@utility lks-pulse {
+  animation: lks-pulse 2.2s ease-in-out infinite;
+}
+
+@utility lks-rise {
+  animation: lks-rise 0.5s ease-out both;
+}
+
+@utility lks-flow-line {
+  position: relative;
+  overflow: hidden;
+  &::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    height: 60%;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      var(--saffron),
+      transparent
+    );
+    animation: lks-flow 1.8s linear infinite;
+  }
+}
+
+@utility lks-shimmer {
+  background-image: linear-gradient(
+    90deg,
+    var(--ink-700) 0%,
+    var(--ink-600) 40%,
+    var(--saffron) 50%,
+    var(--ink-600) 60%,
+    var(--ink-700) 100%
+  );
+  background-size: 200% 100%;
+  animation: lks-sweep 1.6s linear infinite;
+}
+
+@utility lks-label {
+  font-family: var(--font-mono-family);
+  font-size: 10px;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--paper-dim);
+}

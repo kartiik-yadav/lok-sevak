@@ -12,9 +12,7 @@ export function LokSevakLogo({ compact = false }: { compact?: boolean }) {
 
       {!compact && (
         <div className="min-w-0 leading-tight">
-          <div className="text-base font-bold tracking-wide text-white">
-            LOK SEVAK
-          </div>
+          <div className="text-base font-bold tracking-wide text-white">LOK SEVAK</div>
 
           <div className="mt-0.5 text-[8px] font-medium uppercase tracking-[0.14em] text-white/70">
             Smart Public Services

@@ -55,9 +55,7 @@ export type CommonCitizenRecord = {
  * Convert citizen profile to
  * Common Citizen Data Format.
  */
-export function toCommonFormat(
-  profile: CitizenProfile,
-): CommonCitizenRecord {
+export function toCommonFormat(profile: CitizenProfile): CommonCitizenRecord {
   return {
     ccdf_version: "1.0",
 
@@ -87,12 +85,10 @@ export function toCommonFormat(
       },
     },
 
-    documents: profile.documents.map(
-      (document) => ({
-        type: document.name,
-        status: document.status,
-      }),
-    ),
+    documents: profile.documents.map((document) => ({
+      type: document.name,
+      status: document.status,
+    })),
   };
 }
 
@@ -110,10 +106,7 @@ export type AutoFillField = {
  * Build auto-filled form using
  * the ACTUAL citizen profile.
  */
-export function buildAutoFilledForm(
-  service: Service,
-  profile: CitizenProfile,
-): AutoFillField[] {
+export function buildAutoFilledForm(service: Service, profile: CitizenProfile): AutoFillField[] {
   const p = profile;
 
   const base: AutoFillField[] = [
@@ -203,10 +196,7 @@ export function buildAutoFilledForm(
           },
         ];
 
-  return [
-    ...base,
-    ...pending,
-  ];
+  return [...base, ...pending];
 }
 
 export type GatewayStep = {
@@ -220,69 +210,53 @@ export type GatewayStep = {
 /*
  * Integration gateway steps.
  */
-export function gatewaySteps(
-  department: DepartmentId,
-): GatewayStep[] {
-  const dept =
-    departmentById(department);
+export function gatewaySteps(department: DepartmentId): GatewayStep[] {
+  const dept = departmentById(department);
 
   return [
     {
       id: "validate",
 
-      label:
-        "Validating with LOK SEVAK business logic",
+      label: "Validating with LOK SEVAK business logic",
 
-      detail:
-        "Eligibility rules and document checklist evaluated",
+      detail: "Eligibility rules and document checklist evaluated",
     },
 
     {
       id: "ccdf",
 
-      label:
-        "Encoding to Common Citizen Data Format",
+      label: "Encoding to Common Citizen Data Format",
 
-      detail:
-        "CCDF v1.0 payload generated from Citizen Profile",
+      detail: "CCDF v1.0 payload generated from Citizen Profile",
     },
 
     {
       id: "transform",
 
-      label:
-        "Data Transformation Layer",
+      label: "Data Transformation Layer",
 
-      detail:
-        `CCDF → ${dept.dataFormat} for ${dept.systemName}`,
+      detail: `CCDF → ${dept.dataFormat} for ${dept.systemName}`,
     },
 
     {
       id: "gateway",
 
-      label:
-        "API Integration Gateway",
+      label: "API Integration Gateway",
 
-      detail:
-        `POST ${dept.endpoint}/applications`,
+      detail: `POST ${dept.endpoint}/applications`,
     },
 
     {
       id: "ack",
 
-      label:
-        `${dept.systemName} acknowledged`,
+      label: `${dept.systemName} acknowledged`,
 
-      detail:
-        "Mock API returned 201 Created with an application reference",
+      detail: "Mock API returned 201 Created with an application reference",
     },
   ];
 }
 
-const prefix: Record<
-  DepartmentId,
-  string
-> = {
+const prefix: Record<DepartmentId, string> = {
   revenue: "REV",
 
   education: "EDU",
@@ -307,19 +281,13 @@ export function submitToDepartment(
   const id =
     `${prefix[service.department]}-` +
     `${now.getFullYear()}-` +
-    `${Math.floor(
-      Math.random() * 9000,
-    ) + 1000}`;
+    `${Math.floor(Math.random() * 9000) + 1000}`;
 
-  const submittedOn =
-    now.toLocaleDateString(
-      "en-IN",
-      {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-      },
-    );
+  const submittedOn = now.toLocaleDateString("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
 
   return {
     id,
@@ -330,8 +298,7 @@ export function submitToDepartment(
 
     serviceName: service.name,
 
-    department:
-      service.department,
+    department: service.department,
 
     submittedOn,
 
@@ -347,8 +314,7 @@ export function submitToDepartment(
 
     timeline: [
       {
-        label:
-          "Submitted via LOK SEVAK gateway",
+        label: "Submitted via LOK SEVAK gateway",
 
         at: submittedOn,
 
@@ -356,12 +322,7 @@ export function submitToDepartment(
       },
 
       {
-        label:
-          `Received by ${
-            departmentById(
-              service.department,
-            ).systemName
-          }`,
+        label: `Received by ${departmentById(service.department).systemName}`,
 
         at: submittedOn,
 
@@ -369,8 +330,7 @@ export function submitToDepartment(
       },
 
       {
-        label:
-          "Document verification",
+        label: "Document verification",
 
         at: "Queued",
 
@@ -378,8 +338,7 @@ export function submitToDepartment(
       },
 
       {
-        label:
-          "Departmental review",
+        label: "Departmental review",
 
         at: "Pending",
 
@@ -387,8 +346,7 @@ export function submitToDepartment(
       },
 
       {
-        label:
-          "Certificate issued",
+        label: "Certificate issued",
 
         at: "Pending",
 
@@ -398,9 +356,4 @@ export function submitToDepartment(
   };
 }
 
-export const wait = (
-  ms: number,
-) =>
-  new Promise((resolve) =>
-    setTimeout(resolve, ms),
-  );
+export const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));

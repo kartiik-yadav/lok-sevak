@@ -48,25 +48,15 @@ function ApplicationsPage() {
         application.serviceName.toLowerCase().includes(query) ||
         application.id.toLowerCase().includes(query);
 
-      const matchesDepartment =
-        department === "all" ||
-        application.department === department;
+      const matchesDepartment = department === "all" || application.department === department;
 
-      const matchesStatus =
-        status === "all" ||
-        application.status === status;
+      const matchesStatus = status === "all" || application.status === status;
 
-      return (
-        matchesSearch &&
-        matchesDepartment &&
-        matchesStatus
-      );
+      return matchesSearch && matchesDepartment && matchesStatus;
     });
   }, [applications, search, department, status]);
 
-  const departmentCount = new Set(
-    applications.map((application) => application.department),
-  ).size;
+  const departmentCount = new Set(applications.map((application) => application.department)).size;
 
   return (
     <div className="mx-auto max-w-[1320px] px-6 py-14 sm:px-8">
@@ -125,12 +115,8 @@ function ApplicationsPage() {
             <option value="all">All Statuses</option>
             <option value="Submitted">Submitted</option>
             <option value="Processing">Processing</option>
-            <option value="Documents Required">
-              Documents Required
-            </option>
-            <option value="Documents Verified">
-              Documents Verified
-            </option>
+            <option value="Documents Required">Documents Required</option>
+            <option value="Documents Verified">Documents Verified</option>
             <option value="Approved">Approved</option>
           </select>
         </div>
@@ -166,60 +152,50 @@ function ApplicationsPage() {
           <div className="rounded-sm border border-dashed border-line bg-ink-900 p-10 text-center">
             <FileText className="mx-auto size-10 text-paper-dim" />
 
-            <div className="mt-4 lks-label">
-              No Applications Yet
-            </div>
+            <div className="mt-4 lks-label">No Applications Yet</div>
 
             <h3 className="mt-3 font-display text-xl text-paper">
               You haven't submitted any applications.
             </h3>
 
             <p className="mx-auto mt-2 max-w-md text-sm text-paper-dim">
-              Browse government services and submit an application.
-              Your submitted applications will appear here with status tracking.
+              Browse government services and submit an application. Your submitted applications will
+              appear here with status tracking.
             </p>
           </div>
         )}
 
         {/* No Filter Results */}
 
-        {applications.length > 0 &&
-          filteredApplications.length === 0 && (
-            <div className="rounded-sm border border-dashed border-line bg-ink-900 p-10 text-center">
-              <Search className="mx-auto size-9 text-paper-dim" />
+        {applications.length > 0 && filteredApplications.length === 0 && (
+          <div className="rounded-sm border border-dashed border-line bg-ink-900 p-10 text-center">
+            <Search className="mx-auto size-9 text-paper-dim" />
 
-              <div className="mt-4 lks-label">
-                No Matching Applications
-              </div>
+            <div className="mt-4 lks-label">No Matching Applications</div>
 
-              <p className="mt-2 text-sm text-paper-dim">
-                Try changing your search or filters.
-              </p>
+            <p className="mt-2 text-sm text-paper-dim">Try changing your search or filters.</p>
 
-              <button
-                onClick={() => {
-                  setSearch("");
-                  setDepartment("all");
-                  setStatus("all");
-                }}
-                className="mt-4 rounded-sm border border-line px-4 py-2 font-mono text-[11px] uppercase tracking-[0.08em] text-paper hover:border-saffron hover:text-saffron-soft"
-              >
-                Reset Filters
-              </button>
-            </div>
-          )}
+            <button
+              onClick={() => {
+                setSearch("");
+                setDepartment("all");
+                setStatus("all");
+              }}
+              className="mt-4 rounded-sm border border-line px-4 py-2 font-mono text-[11px] uppercase tracking-[0.08em] text-paper hover:border-saffron hover:text-saffron-soft"
+            >
+              Reset Filters
+            </button>
+          </div>
+        )}
 
         {/* Application Cards */}
 
         {filteredApplications.map((application) => {
-          const departmentInfo = departmentById(
-            application.department,
-          );
+          const departmentInfo = departmentById(application.department);
 
           const isApproved = application.progress === 100;
 
-          const isDocumentsRequired =
-            application.status === "Documents Required";
+          const isDocumentsRequired = application.status === "Documents Required";
 
           return (
             <button
@@ -283,9 +259,7 @@ function ApplicationsPage() {
                       {application.status}
                     </span>
 
-                    <span className="text-paper-dim">
-                      {application.progress}%
-                    </span>
+                    <span className="text-paper-dim">{application.progress}%</span>
                   </div>
 
                   {/* Progress Bar */}
@@ -293,11 +267,7 @@ function ApplicationsPage() {
                   <div className="mt-2">
                     <Progress
                       value={application.progress}
-                      tone={
-                        isApproved
-                          ? "signal"
-                          : "saffron"
-                      }
+                      tone={isApproved ? "signal" : "saffron"}
                     />
                   </div>
 
@@ -326,11 +296,7 @@ function ApplicationsPage() {
                         <span
                           className={
                             "mt-1.5 size-2 shrink-0 rounded-full " +
-                            (
-                              timelineStep.done
-                                ? "bg-signal"
-                                : "bg-ink-600"
-                            )
+                            (timelineStep.done ? "bg-signal" : "bg-ink-600")
                           }
                         />
 
@@ -339,9 +305,7 @@ function ApplicationsPage() {
                         <div className="flex flex-1 flex-wrap items-baseline justify-between gap-3">
                           <span
                             className={
-                              timelineStep.done
-                                ? "text-sm text-paper"
-                                : "text-sm text-paper-dim"
+                              timelineStep.done ? "text-sm text-paper" : "text-sm text-paper-dim"
                             }
                           >
                             {timelineStep.label}

@@ -24,7 +24,7 @@ The platform simplifies the government application process by allowing citizens 
 
 LOK SEVAK demonstrates how different government departments could be connected through a unified digital platform.
 
-```text
+````text
 Citizen
    │
    ▼
@@ -124,3 +124,4 @@ Application flow:
 5. Application Preview
         ↓
 6. Submit through Integration Gateway
+````
